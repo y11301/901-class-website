@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>901｜我們的青春基地</title>
+<meta name="description" content="901 班級專屬網站｜This is our story.">
+<style>
+:root{
+  --navy:#101a35;
+  --blue:#2949a8;
+  --yellow:#ffd84d;
+  --cream:#fffaf0;
+  --white:#ffffff;
+  --text:#18213a;
+  --muted:#69738c;
+  --card:#ffffffcc;
+  --shadow:0 18px 45px rgba(16,26,53,.12);
+}
+body.dark{
+  --cream:#0b1228; --white:#121a33; --text:#eef2ff; --muted:#aab4d0; --card:#121a33cc;
+  --shadow:0 18px 45px rgba(0,0,0,.35);
+}
+body.dark .nav{background:rgba(11,18,40,.82)}
+body.dark .members{background:#10182f}
+body.dark input,body.dark textarea{background:#121a33;color:#eef2ff;border-color:#2a3558}
+body.dark .tag{background:#182242;color:#9fb3ff}
+body.dark .photo:nth-child(3n){color:var(--navy)}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;
+  color:var(--text); background:var(--cream); line-height:1.7;
+}
+a{text-decoration:none;color:inherit}
+button{font:inherit}
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 5%;background:rgba(255,250,240,.82);
+  backdrop-filter:blur(14px);border-bottom:1px solid #ffffff80;
+}
+.logo{font-weight:900;font-size:1.35rem;letter-spacing:.08em}
+.logo span{color:var(--blue)}
+.nav-links{display:flex;gap:22px;font-size:.95rem;font-weight:700}
+.nav-links a:hover{color:var(--blue)}
+.theme{border:0;background:transparent;font-size:1.25rem;cursor:pointer;margin-left:auto;margin-right:10px}.menu{display:none;border:0;background:transparent;font-size:1.5rem;cursor:pointer}
+.hero{
+  min-height:100vh;display:grid;place-items:center;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#101a35 0%,#1f3577 62%,#3557bd 100%);
+  color:white;padding:110px 5% 70px;
+}
+.hero:before,.hero:after{
+  content:"";position:absolute;border-radius:50%;filter:blur(2px);opacity:.9;
+}
+.hero:before{width:420px;height:420px;background:#ffd84d;right:-130px;top:80px}
+.hero:after{width:300px;height:300px;background:#ffffff18;left:-90px;bottom:-80px}
+.hero-inner{max-width:1100px;width:100%;position:relative;z-index:2}
+.badge{display:inline-block;background:#ffffff18;border:1px solid #ffffff35;padding:7px 14px;border-radius:99px;font-weight:700;margin-bottom:20px}
+.hero h1{font-size:clamp(4rem,12vw,9rem);line-height:.85;letter-spacing:-.06em}
+.hero h1 span{color:var(--yellow)}
+.hero h2{font-size:clamp(1.2rem,3vw,2rem);margin:25px 0 8px}
+.hero p{color:#dfe5ff;max-width:600px}
+.cta{
+  display:inline-flex;align-items:center;gap:8px;margin-top:30px;
+  padding:13px 20px;border-radius:14px;background:var(--yellow);
+  color:var(--navy);font-weight:900;box-shadow:0 12px 30px #0003;
+  transition:.2s;cursor:pointer;border:0;
+}
+.cta:hover{transform:translateY(-3px)}
+section{padding:95px 5%}
+.container{max-width:1100px;margin:auto}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:35px}
+.eyebrow{color:var(--blue);font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+h3{font-size:clamp(2rem,5vw,3.3rem);line-height:1.15}
+.sub{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{
+  background:var(--card);border:1px solid #fff;box-shadow:var(--shadow);
+  border-radius:24px;padding:24px;
+}
+.announcement{position:relative;overflow:hidden}
+.announcement .date{font-size:.8rem;font-weight:800;color:var(--blue)}
+.announcement h4{font-size:1.2rem;margin:7px 0}
+.announcement .pin{position:absolute;right:20px;top:18px}
+.members{background:#eef2ff}
+.member{
+  text-align:center;transition:.2s;cursor:pointer;
+}
+.member:hover{transform:translateY(-6px)}
+.avatar{
+  width:100px;height:100px;border-radius:50%;margin:0 auto 15px;
+  display:grid;place-items:center;background:var(--navy);color:var(--yellow);
+  font-size:2rem;font-weight:900;border:5px solid white;
+}
+.member h4{font-size:1.15rem}
+.tag{display:inline-block;margin-top:6px;padding:4px 9px;border-radius:99px;background:#fff;font-size:.78rem;color:var(--blue);font-weight:800}
+
+.upload-box{
+  margin-bottom:24px;padding:24px;border:2px dashed #c7cde1;border-radius:24px;
+  background:var(--card);box-shadow:var(--shadow);text-align:center;transition:.2s;
+}
+.upload-box.dragover{border-color:var(--blue);transform:translateY(-2px)}
+.upload-box h4{font-size:1.35rem;margin-bottom:6px}
+.upload-box p{color:var(--muted);margin-bottom:15px}
+.file-label{
+  display:inline-flex;align-items:center;gap:8px;cursor:pointer;padding:11px 16px;
+  border-radius:14px;background:var(--navy);color:white;font-weight:900;
+}
+.file-label:hover{transform:translateY(-2px)}
+#photoInput{display:none}
+.upload-status{margin-top:12px;font-size:.9rem;color:var(--muted)}
+.uploaded-gallery{
+  columns:3 220px;column-gap:16px;margin-top:12px;
+}
+.uploaded-card{
+  break-inside:avoid;margin-bottom:16px;border-radius:20px;overflow:hidden;
+  background:var(--white);box-shadow:var(--shadow);position:relative;
+}
+.uploaded-card img{display:block;width:100%;height:auto;max-height:360px;object-fit:cover}
+.uploaded-info{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.uploaded-name{font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.delete-photo{
+  border:0;background:#ffe5e5;color:#a12a2a;border-radius:10px;padding:7px 10px;
+  cursor:pointer;font-weight:800;flex:0 0 auto;
+}
+body.dark .upload-box{border-color:#34405f}
+body.dark .delete-photo{background:#3b2025;color:#ffb1b1}
+@media(max-width:760px){.uploaded-gallery{columns:1}}
+
+.gallery{columns:3 220px;column-gap:16px}
+.photo{
+  break-inside:avoid;margin-bottom:16px;border-radius:20px;overflow:hidden;
+  background:linear-gradient(135deg,#2949a8,#ffd84d);min-height:180px;
+  display:grid;place-items:center;color:white;font-size:3rem;box-shadow:var(--shadow);
+  position:relative;
+}
+.photo:nth-child(2n){min-height:240px;background:linear-gradient(135deg,#18213a,#4d70dd)}
+.photo:nth-child(3n){min-height:200px;background:linear-gradient(135deg,#ffd84d,#fff1a6);color:var(--navy)}
+.photo span{font-size:1rem;font-weight:900;position:absolute;bottom:12px;left:15px}
+.quote{
+  background:var(--navy);color:white;border-radius:30px;padding:50px;
+  text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.quote:before{content:"“";position:absolute;font-size:13rem;line-height:1;left:20px;top:-35px;color:#ffffff12}
+.quote blockquote{font-size:clamp(1.5rem,4vw,2.5rem);font-weight:800;position:relative}
+.quote cite{display:block;color:#bfc8e9;margin-top:15px;font-style:normal}
+.capsule{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+textarea,input{
+  width:100%;border:2px solid #e1e5f0;border-radius:15px;padding:14px;
+  background:white;outline:none;
+}
+textarea:focus,input:focus{border-color:var(--blue)}
+.capsule .form{display:grid;gap:12px}
+
+.admin-entry{position:fixed;left:20px;bottom:20px;z-index:95;border:1px solid #ffffff80;background:#ffffffb8;color:var(--navy);backdrop-filter:blur(16px);padding:9px 13px;border-radius:14px;font-weight:900;cursor:pointer;box-shadow:0 8px 25px #0002}
+body.dark .admin-entry{background:#182242d9;color:#fff;border-color:#ffffff22}
+.admin-overlay{position:fixed;inset:0;background:#07102499;backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:18px;z-index:300}
+.admin-overlay.open{display:flex}
+.admin-panel{width:min(850px,100%);max-height:90vh;overflow:auto;background:var(--cream);color:var(--text);border-radius:28px;padding:26px;box-shadow:0 30px 90px #0005}
+body.dark .admin-panel{background:#0e1730;color:#eef2ff}
+.admin-head{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px}
+.admin-head h3{font-size:1.8rem}
+.close-admin{border:0;background:#e9edf7;border-radius:12px;padding:8px 12px;cursor:pointer}
+body.dark .close-admin{background:#202c4d;color:white}
+.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.admin-tab{border:0;border-radius:12px;padding:9px 13px;background:#e9edf7;cursor:pointer;font-weight:800}
+.admin-tab.active{background:var(--navy);color:white}
+body.dark .admin-tab{background:#202c4d;color:#eef2ff}
+.admin-section{display:none}.admin-section.active{display:block}
+.admin-form{display:grid;gap:12px}
+.admin-form label{font-weight:800;font-size:.9rem}
+.admin-form input,.admin-form textarea{width:100%;border:2px solid #dce2ef;border-radius:12px;padding:11px;background:white}
+body.dark .admin-form input,body.dark .admin-form textarea{background:#121d39;color:white;border-color:#30405f}
+.admin-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.admin-btn{border:0;border-radius:12px;padding:11px 15px;background:var(--navy);color:white;font-weight:900;cursor:pointer}
+.admin-btn.secondary{background:#e9edf7;color:var(--navy)}
+body.dark .admin-btn.secondary{background:#202c4d;color:white}
+.admin-list{display:grid;gap:10px;margin-top:12px}
+.admin-item{padding:13px;border:1px solid #e0e5f0;border-radius:14px;background:#ffffff88}
+body.dark .admin-item{border-color:#2d3a59;background:#111b35}
+.admin-note{font-size:.85rem;color:var(--muted);margin-top:5px}
+
+.footer{background:#0b1228;color:#bfc8e9;padding:35px 5%;text-align:center}
+.footer strong{color:white}
+.top{
+  position:fixed;right:22px;bottom:22px;width:45px;height:45px;border-radius:50%;
+  border:0;background:var(--yellow);color:var(--navy);font-weight:900;cursor:pointer;
+  opacity:0;pointer-events:none;transition:.2s;z-index:90;
+}
+.top.show{opacity:1;pointer-events:auto}
+.toast{
+  position:fixed;left:50%;bottom:30px;transform:translate(-50%,20px);
+  background:var(--navy);color:white;padding:12px 18px;border-radius:99px;
+  opacity:0;pointer-events:none;transition:.25s;z-index:200;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.reveal{opacity:0;transform:translateY(25px);transition:.7s}
+.reveal.visible{opacity:1;transform:none}
+@media(max-width:760px){
+  .nav-links{display:none;position:absolute;top:62px;left:0;right:0;background:var(--cream);padding:20px 5%;flex-direction:column;gap:12px;box-shadow:0 10px 25px #0001}
+  .nav-links.open{display:flex}.menu{display:block}
+  .grid{grid-template-columns:1fr}
+  .capsule{grid-template-columns:1fr}
+  section{padding:75px 5%}
+  .section-head{display:block}.section-head .sub{margin-top:8px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="logo" href="#home">9<span>01</span> ✦</a>
+  <button class="theme" id="themeBtn" aria-label="切換暗色模式" title="切換暗色模式">🌙</button>
+  <button class="menu" aria-label="開啟選單">☰</button>
+  <div class="nav-links">
+    <a href="#home">首頁</a>
+    <a href="#news">公告</a>
+    <a href="#members">成員</a>
+    <a href="#memories">相簿</a>
+    <a href="#quotes">語錄</a>
+    <a href="#capsule">時光膠囊</a>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="hero-inner reveal">
+    <div class="badge">CLASS 901 · OUR STORY</div>
+    <h1>9<span>01</span></h1>
+    <h2>歡迎來到我們的青春基地。</h2>
+    <p>這裡收藏 901 的日常、笑聲、回憶，還有那些只有我們才懂的小故事。</p>
+    <a class="cta" href="#memories">探索 901 ↓</a>
+  </div>
+</header>
+
+<section id="news">
+  <div class="container">
+    <div class="section-head reveal">
+      <div><div class="eyebrow">Notice Board</div><h3>班級公告 📢</h3></div>
+      <div class="sub">最新消息都在這裡！</div>
+    </div>
+    <div class="grid">
+      <article class="card announcement reveal"><span class="pin">📌</span><div class="date">2026 / 09 / 18</div><h4>班級大掃除</h4><p>記得帶好清潔工具，一起把 901 整理得漂漂亮亮！</p></article>
+      <article class="card announcement reveal"><span class="pin">⭐</span><div class="date">COMING SOON</div><h4>班級活動</h4><p>下一個活動等你來決定，記得留意班群公告。</p></article>
+      <article class="card announcement reveal"><span class="pin">💡</span><div class="date">REMINDER</div><h4>作業小提醒</h4><p>今天該交的作業不要忘記，901 加油！</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="members" id="members">
+  <div class="container">
+    <div class="section-head reveal">
+      <div><div class="eyebrow">Our People</div><h3>901 成員 👥</h3></div>
+      <div class="sub">把名字換成你們班的同學就完成了！</div>
+    </div>
+    <div class="grid">
+      <article class="card member reveal" data-name="小明"><div class="avatar">01</div><h4>小明</h4><span class="tag">氣氛製造機</span></article>
+      <article class="card member reveal" data-name="小美"><div class="avatar">02</div><h4>小美</h4><span class="tag">筆記研究員</span></article>
+      <article class="card member reveal" data-name="阿哲"><div class="avatar">03</div><h4>阿哲</h4><span class="tag">體育戰神</span></article>
+      <article class="card member reveal" data-name="小涵"><div class="avatar">04</div><h4>小涵</h4><span class="tag">笑聲擔當</span></article>
+      <article class="card member reveal" data-name="阿凱"><div class="avatar">05</div><h4>阿凱</h4><span class="tag">午餐專家</span></article>
+      <article class="card member reveal" data-name="神秘同學"><div class="avatar">?</div><h4>你的名字</h4><span class="tag">待解鎖...</span></article>
+    </div>
+  </div>
+</section>
+
+<section id="memories">
+  <div class="container">
+    <div class="section-head reveal">
+      <div><div class="eyebrow">Memory Wall</div><h3>901 回憶牆 📸</h3></div>
+      <div class="sub">直接從手機或電腦選照片，照片會保存在這個瀏覽器裡。</div>
+    </div>
+
+    <div class="upload-box reveal" id="dropZone">
+      <h4>把 901 的照片放進來吧！</h4>
+      <p>支援 JPG、PNG、WEBP、GIF 等圖片格式，可一次選多張，也可以直接拖曳照片到這裡。</p>
+      <label class="file-label" for="photoInput">📷 選擇照片</label>
+      <input id="photoInput" type="file" accept="image/*" multiple>
+      <div class="upload-status" id="uploadStatus">尚未上傳照片</div>
+    </div>
+
+    <div class="uploaded-gallery" id="uploadedGallery"></div>
+
+    <div class="gallery reveal" style="margin-top:28px">
+      <div class="photo">🏫<span>開學日</span></div>
+      <div class="photo">😂<span>那些爆笑瞬間</span></div>
+      <div class="photo">🏃<span>運動會</span></div>
+      <div class="photo">🚌<span>校外教學</span></div>
+      <div class="photo">🍱<span>午餐時間</span></div>
+      <div class="photo">🎉<span>班級活動</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="quotes">
+  <div class="container reveal">
+    <div class="quote">
+      <blockquote>「下課只有十分鐘，<br>但我們可以笑一整天。」</blockquote>
+      <cite>— 901</cite>
+    </div>
+  </div>
+</section>
+
+<section id="capsule">
+  <div class="container">
+    <div class="section-head reveal">
+      <div><div class="eyebrow">Time Capsule</div><h3>901 時光膠囊 💌</h3></div>
+      <div class="sub">寫一句給未來的自己。</div>
+    </div>
+    <div class="capsule">
+      <div class="card reveal">
+        <h4 style="font-size:1.4rem;margin-bottom:8px">如果未來再次看到這個網站……</h4>
+        <p class="sub">你最想對那時候的自己說什麼？</p>
+        <form class="form" id="capsuleForm" style="margin-top:18px">
+          <input id="name" placeholder="你的名字 / 暱稱" required>
+          <textarea id="message" rows="5" placeholder="我希望未來的自己記得……" required></textarea>
+          <button class="cta" type="submit">封存這句話 ✨</button>
+        </form>
+      </div>
+      <div class="card reveal">
+        <h4 style="font-size:1.4rem;margin-bottom:15px">已封存的回憶</h4>
+        <div id="capsules"><p class="sub">還沒有留言，成為第一個留下回憶的人吧！</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<button class="admin-entry" id="adminEntry">⚙️ 後台</button>
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-panel">
+    <div class="admin-head">
+      <div><div class="eyebrow">901 Admin</div><h3>班網後台</h3></div>
+      <button class="close-admin" id="closeAdmin">✕</button>
+    </div>
+    <div id="loginView">
+      <p>使用管理員 Email 與密碼登入，內容會同步到雲端。</p>
+      <form class="admin-form" id="adminLoginForm" style="margin-top:16px">
+        <label for="adminEmail">管理員 Email</label>
+        <input id="adminEmail" type="email" placeholder="admin@example.com" autocomplete="username" required>
+        <label for="adminPassword">管理員密碼</label>
+        <input id="adminPassword" type="password" placeholder="輸入密碼" autocomplete="current-password" required>
+        <button class="admin-btn" type="submit">登入後台 🔐</button>
+      </form>
+      <p class="admin-note">使用 Supabase Auth 登入；不要把管理員密碼寫進 HTML。</p>
+    </div>
+    <div id="dashboardView" style="display:none">
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="basic">基本資料</button>
+        <button class="admin-tab" data-tab="news">公告</button>
+        <button class="admin-tab" data-tab="members">成員</button>
+        <button class="admin-tab" data-tab="quote">語錄</button>
+      </div>
+      <section class="admin-section active" id="tab-basic">
+        <form class="admin-form" id="basicForm">
+          <label>首頁副標題</label><input id="editHeroSubtitle" required>
+          <label>首頁介紹</label><textarea id="editHeroText" rows="4" required></textarea>
+          <button class="admin-btn" type="submit">儲存基本資料 💾</button>
+        </form>
+      </section>
+      <section class="admin-section" id="tab-news">
+        <form class="admin-form" id="newsForm">
+          <label>公告標題</label><input id="newsTitle" required>
+          <label>日期</label><input id="newsDate" placeholder="例如：2026 / 09 / 18" required>
+          <label>內容</label><textarea id="newsText" rows="4" required></textarea>
+          <button class="admin-btn" type="submit">新增公告 ➕</button>
+        </form>
+        <div class="admin-list" id="adminNewsList"></div>
+      </section>
+      <section class="admin-section" id="tab-members">
+        <form class="admin-form" id="memberForm">
+          <label>姓名</label><input id="memberName" required>
+          <label>座號</label><input id="memberNo" type="number" min="1" required>
+          <label>稱號</label><input id="memberTag" required>
+          <button class="admin-btn" type="submit">新增成員 ➕</button>
+        </form>
+        <div class="admin-list" id="adminMemberList"></div>
+      </section>
+      <section class="admin-section" id="tab-quote">
+        <form class="admin-form" id="quoteForm">
+          <label>901 經典語錄</label><textarea id="editQuote" rows="4" required></textarea>
+          <label>署名</label><input id="editQuoteCite" required>
+          <button class="admin-btn" type="submit">儲存語錄 💬</button>
+        </form>
+      </section>
+      <div class="admin-actions">
+        <button class="admin-btn secondary" id="logoutAdmin" type="button">登出</button>
+        <button class="admin-btn secondary" id="resetContent" type="button">恢復預設內容</button>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="footer">
+  <p><strong>901｜OUR STORY</strong></p>
+  <p>Made with ✦ by Class 901 · <span id="year"></span></p>
+</footer>
+
+<button class="top" id="topBtn" aria-label="回到頂端">↑</button>
+<div class="toast" id="toast">已封存！這句話會留在這個瀏覽器裡 💛</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const menu=document.querySelector('.menu');
+const nav=document.querySelector('.nav-links');
+menu.addEventListener('click',()=>nav.classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+
+const themeBtn=document.getElementById('themeBtn');
+const savedTheme=localStorage.getItem('class901Theme');
+if(savedTheme==='dark') document.body.classList.add('dark');
+function updateThemeIcon(){themeBtn.textContent=document.body.classList.contains('dark')?'☀️':'🌙';}
+updateThemeIcon();
+themeBtn.addEventListener('click',()=>{
+  document.body.classList.toggle('dark');
+  localStorage.setItem('class901Theme',document.body.classList.contains('dark')?'dark':'light');
+  updateThemeIcon();
+});
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+const topBtn=document.getElementById('topBtn');
+window.addEventListener('scroll',()=>topBtn.classList.toggle('show',scrollY>500));
+topBtn.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+
+document.getElementById('year').textContent=new Date().getFullYear();
+
+document.querySelectorAll('.member').forEach(card=>{
+  card.addEventListener('click',()=>{
+    const name=card.dataset.name;
+    showToast(`嗨，${name}！901 永遠歡迎你 ✨`);
+  });
+});
+
+
+
+// ===== 901 班網線上管理後台：Supabase Auth + Database =====
+const SUPABASE_URL = "https://blwvopzvcmqovqigramd.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_cr3e_dLuiC_5lIioN054bg_0HKXco4t";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const CONTENT_TABLE = "class901_content";
+
+const adminEntry = document.getElementById("adminEntry");
+const adminOverlay = document.getElementById("adminOverlay");
+const closeAdmin = document.getElementById("closeAdmin");
+const loginView = document.getElementById("loginView");
+const dashboardView = document.getElementById("dashboardView");
+const adminEmail = document.getElementById("adminEmail");
+const adminPassword = document.getElementById("adminPassword");
+
+const defaultAdminContent = {
+  basic: { subtitle: "歡迎來到我們的青春基地。", text: "這裡收藏 901 的日常、笑聲、回憶，還有那些只有我們才懂的小故事。" },
+  news: [
+    {date:"2026 / 09 / 18", title:"班級大掃除", text:"記得帶好清潔工具，一起把 901 整理得漂漂亮亮！"},
+    {date:"COMING SOON", title:"班級活動", text:"下一個活動等你來決定，記得留意班群公告。"},
+    {date:"REMINDER", title:"作業小提醒", text:"今天該交的作業不要忘記，901 加油！"}
+  ],
+  members: [
+    {name:"小明", no:"01", tag:"氣氛製造機"},{name:"小美", no:"02", tag:"筆記研究員"},{name:"阿哲", no:"03", tag:"體育戰神"},{name:"小涵", no:"04", tag:"笑聲擔當"},{name:"阿凱", no:"05", tag:"午餐專家"},{name:"你的名字", no:"?", tag:"待解鎖..."}
+  ],
+  quote: {text:"「下課只有十分鐘，\n但我們可以笑一整天。」", cite:"— 901"}
+};
+
+let adminContent = structuredClone(defaultAdminContent);
+
+function esc(value){ return String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;", "'":"&#039;"}[ch])); }
+
+async function loadAdminContent(){
+  const {data,error} = await supabaseClient.from(CONTENT_TABLE).select('content').eq('id',1).maybeSingle();
+  if(error){ console.error(error); showToast('讀取雲端內容失敗，請先執行 SQL 設定。'); return; }
+  if(data?.content){ adminContent = data.content; applyAdminContent(); }
+}
+async function saveAdminContent(data){
+  adminContent = data;
+  const {error} = await supabaseClient.from(CONTENT_TABLE).upsert({id:1,content:data,updated_at:new Date().toISOString()});
+  if(error){ console.error(error); showToast('雲端儲存失敗：'+error.message); return false; }
+  return true;
+}
+
+function applyAdminContent(){
+  const d = adminContent;
+  const heroSubtitle=document.querySelector('.hero h2'), heroText=document.querySelector('.hero p');
+  if(heroSubtitle) heroSubtitle.textContent=d.basic.subtitle;
+  if(heroText) heroText.textContent=d.basic.text;
+  const newsGrid=document.querySelector('#news .grid');
+  if(newsGrid) newsGrid.innerHTML=d.news.map((n,i)=>`<article class="card announcement reveal visible"><span class="pin">${i===0?'📌':i===1?'⭐':'💡'}</span><div class="date">${esc(n.date)}</div><h4>${esc(n.title)}</h4><p>${esc(n.text)}</p></article>`).join('');
+  const memberGrid=document.querySelector('#members .grid');
+  if(memberGrid){ memberGrid.innerHTML=d.members.map(m=>`<article class="card member reveal visible" data-name="${esc(m.name)}"><div class="avatar">${esc(m.no)}</div><h4>${esc(m.name)}</h4><span class="tag">${esc(m.tag)}</span></article>`).join('');
+    document.querySelectorAll('.member').forEach(card=>card.addEventListener('click',()=>{if(typeof showToast==='function')showToast(`嗨，${card.dataset.name}！901 永遠歡迎你 ✨`);})); }
+  const quote=document.querySelector('#quotes blockquote'), cite=document.querySelector('#quotes cite');
+  if(quote) quote.innerHTML=esc(d.quote.text).replace(/\n/g,'<br>'); if(cite) cite.textContent=d.quote.cite;
+}
+function renderAdminLists(){
+  const newsList=document.getElementById('adminNewsList'), memberList=document.getElementById('adminMemberList');
+  newsList.innerHTML=adminContent.news.length?adminContent.news.map((n,i)=>`<div class="admin-item"><strong>${esc(n.title)}</strong><div class="admin-note">${esc(n.date)}｜${esc(n.text)}</div><button class="admin-btn secondary" type="button" onclick="remove901News(${i})" style="margin-top:8px">刪除</button></div>`).join(''):'<p class="admin-note">目前沒有公告。</p>';
+  memberList.innerHTML=adminContent.members.length?adminContent.members.map((m,i)=>`<div class="admin-item"><strong>${esc(m.name)}</strong><div class="admin-note">座號 ${esc(m.no)}｜${esc(m.tag)}</div><button class="admin-btn secondary" type="button" onclick="remove901Member(${i})" style="margin-top:8px">刪除</button></div>`).join(''):'<p class="admin-note">目前沒有成員。</p>';
+}
+function fillAdminForms(){
+  document.getElementById('editHeroSubtitle').value=adminContent.basic.subtitle;
+  document.getElementById('editHeroText').value=adminContent.basic.text;
+  document.getElementById('editQuote').value=adminContent.quote.text;
+  document.getElementById('editQuoteCite').value=adminContent.quote.cite;
+  renderAdminLists();
+}
+window.remove901News=async function(i){ const d=structuredClone(adminContent); d.news.splice(i,1); if(await saveAdminContent(d)){applyAdminContent();renderAdminLists();showToast('公告已刪除 ☁️');} };
+window.remove901Member=async function(i){ const d=structuredClone(adminContent); d.members.splice(i,1); if(await saveAdminContent(d)){applyAdminContent();renderAdminLists();showToast('成員已刪除 ☁️');} };
+
+async function updateLoginUI(){
+  const {data:{session}}=await supabaseClient.auth.getSession();
+  const loggedIn=!!session;
+  loginView.style.display=loggedIn?'none':'block'; dashboardView.style.display=loggedIn?'block':'none';
+  if(loggedIn){ await loadAdminContent(); fillAdminForms(); }
+  else { adminEmail.value=''; adminPassword.value=''; }
+  return loggedIn;
+}
+adminEntry.addEventListener('click',async()=>{ adminOverlay.classList.add('open'); const loggedIn=await updateLoginUI(); if(!loggedIn)setTimeout(()=>adminEmail.focus(),50); });
+closeAdmin.addEventListener('click',()=>adminOverlay.classList.remove('open'));
+adminOverlay.addEventListener('click',e=>{if(e.target===adminOverlay)adminOverlay.classList.remove('open');});
+
+document.getElementById('adminLoginForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const {error}=await supabaseClient.auth.signInWithPassword({email:adminEmail.value.trim(),password:adminPassword.value});
+  if(error){console.error(error);showToast('登入失敗：Email 或密碼錯誤 ❌');return;}
+  await updateLoginUI(); adminPassword.value=''; showToast('登入成功 🔐');
+});
+
+document.querySelectorAll('.admin-tab').forEach(tab=>tab.addEventListener('click',()=>{document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.admin-section').forEach(s=>s.classList.remove('active'));tab.classList.add('active');document.getElementById('tab-'+tab.dataset.tab).classList.add('active');}));
+
+document.getElementById('basicForm').addEventListener('submit',async e=>{e.preventDefault();const d=structuredClone(adminContent);d.basic={subtitle:document.getElementById('editHeroSubtitle').value.trim(),text:document.getElementById('editHeroText').value.trim()};if(await saveAdminContent(d)){applyAdminContent();showToast('基本資料已同步到雲端 💾');}});
+document.getElementById('newsForm').addEventListener('submit',async e=>{e.preventDefault();const d=structuredClone(adminContent);d.news.push({title:document.getElementById('newsTitle').value.trim(),date:document.getElementById('newsDate').value.trim(),text:document.getElementById('newsText').value.trim()});if(await saveAdminContent(d)){applyAdminContent();renderAdminLists();e.target.reset();showToast('公告已同步到雲端 📢');}});
+document.getElementById('memberForm').addEventListener('submit',async e=>{e.preventDefault();const d=structuredClone(adminContent);d.members.push({name:document.getElementById('memberName').value.trim(),no:String(document.getElementById('memberNo').value).padStart(2,'0'),tag:document.getElementById('memberTag').value.trim()});if(await saveAdminContent(d)){applyAdminContent();renderAdminLists();e.target.reset();showToast('成員已同步到雲端 👤');}});
+document.getElementById('quoteForm').addEventListener('submit',async e=>{e.preventDefault();const d=structuredClone(adminContent);d.quote={text:document.getElementById('editQuote').value.trim(),cite:document.getElementById('editQuoteCite').value.trim()};if(await saveAdminContent(d)){applyAdminContent();showToast('語錄已同步到雲端 💬');}});
+document.getElementById('logoutAdmin').addEventListener('click',async()=>{await supabaseClient.auth.signOut();await updateLoginUI();showToast('已登出 🔒');});
+document.getElementById('resetContent').addEventListener('click',async()=>{if(confirm('確定要恢復班網預設內容嗎？')){if(await saveAdminContent(structuredClone(defaultAdminContent))){applyAdminContent();fillAdminForms();showToast('已恢復並同步預設內容 ☁️');}}});
+supabaseClient.auth.onAuthStateChange(()=>{});
+loadAdminContent();
+
+// ===== 901 照片上傳區：Supabase 雲端儲存 =====
+// ===== 901 照片上傳區：Supabase 雲端儲存 =====
+const PHOTO_BUCKET = "class-photos";
+
+const photoInput = document.getElementById('photoInput');
+const dropZone = document.getElementById('dropZone');
+const uploadedGallery = document.getElementById('uploadedGallery');
+const uploadStatus = document.getElementById('uploadStatus');
+
+function safeName(name){ return name.replace(/[^\w.\-\u4e00-\u9fff]/g, '_'); }
+
+async function addPhotos(files){
+  const imageFiles = Array.from(files).filter(f => f.type.startsWith('image/'));
+  if(!imageFiles.length){ showToast('請選擇圖片檔案 📷'); return; }
+  uploadStatus.textContent = `正在上傳 ${imageFiles.length} 張照片…`;
+  let success = 0;
+  for(const file of imageFiles){
+    const fileName = `${Date.now()}-${crypto.randomUUID()}-${safeName(file.name)}`;
+    const { error } = await supabaseClient.storage.from(PHOTO_BUCKET).upload(fileName, file, {
+      cacheControl:'3600', upsert:false
+    });
+    if(error){ console.error(error); continue; }
+    success++;
+  }
+  await renderUploadedPhotos();
+  if(success === imageFiles.length) showToast(`成功上傳 ${success} 張照片！📸`);
+  else if(success) showToast(`成功上傳 ${success} 張，部分照片失敗。`);
+  else showToast('上傳失敗，請確認 Supabase Bucket 與權限設定。');
+}
+
+async function renderUploadedPhotos(){
+  const { data: files, error } = await supabaseClient.storage.from(PHOTO_BUCKET).list('', {
+    limit:100, offset:0, sortBy:{column:'created_at', order:'desc'}
+  });
+  if(error){
+    console.error(error);
+    uploadStatus.textContent = '無法讀取照片，請確認 Bucket 名稱與權限設定。';
+    uploadedGallery.innerHTML = ''; return;
+  }
+  const photos = (files || []).filter(f => f.name);
+  uploadStatus.textContent = photos.length ? `雲端共有 ${photos.length} 張照片` : '雲端相簿目前還沒有照片';
+  uploadedGallery.innerHTML = '';
+  photos.forEach(photo=>{
+    const {data: publicData} = supabaseClient.storage.from(PHOTO_BUCKET).getPublicUrl(photo.name);
+    const card=document.createElement('article'); card.className='uploaded-card reveal visible';
+    const img=document.createElement('img'); img.src=publicData.publicUrl; img.alt=photo.name; img.loading='lazy';
+    const info=document.createElement('div'); info.className='uploaded-info';
+    const name=document.createElement('div'); name.className='uploaded-name'; name.title=photo.name;
+    name.textContent=photo.name.replace(/^\d+-[a-f0-9-]+-/,'');
+    const del=document.createElement('button'); del.className='delete-photo'; del.type='button'; del.textContent='刪除';
+    del.addEventListener('click',async()=>{
+      if(!confirm(`確定要刪除「${name.textContent}」嗎？`)) return;
+      const {error}=await supabaseClient.storage.from(PHOTO_BUCKET).remove([photo.name]);
+      if(error){console.error(error);showToast('刪除失敗，請確認 Storage 權限。');return;}
+      await renderUploadedPhotos(); showToast('照片已從雲端相簿刪除 🗑️');
+    });
+    info.append(name,del); card.append(img,info); uploadedGallery.appendChild(card);
+  });
+}
+
+photoInput.addEventListener('change',e=>{addPhotos(e.target.files);e.target.value='';});
+['dragenter','dragover'].forEach(type=>dropZone.addEventListener(type,e=>{
+  e.preventDefault(); dropZone.classList.add('dragover');
+}));
+['dragleave','drop'].forEach(type=>dropZone.addEventListener(type,e=>{
+  e.preventDefault(); dropZone.classList.remove('dragover');
+}));
+dropZone.addEventListener('drop',e=>addPhotos(e.dataTransfer.files));
+renderUploadedPhotos().catch(console.error);
+
+const form=document.getElementById('capsuleForm');
+const list=document.getElementById('capsules');
+const toast=document.getElementById('toast');
+
+function showToast(text){
+  toast.textContent=text;toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),2200);
+}
+async function renderCapsules(){
+  const {data,error}=await supabaseClient.from('class901_capsules').select('*').order('created_at',{ascending:false});
+  if(error){console.error(error);list.innerHTML='<p class="sub">無法讀取線上回憶，請確認 Supabase SQL 設定。</p>';return;}
+  list.innerHTML=(data||[]).map(x=>`<div class="capsule"><strong>${esc(x.name||'匿名同學')}</strong><span>${esc(x.created_at?new Date(x.created_at).toLocaleString('zh-TW'): '')}</span><p>${esc(x.message)}</p></div>`).join('') || '<p class="sub">還沒有留言，成為第一個留下回憶的人吧！</p>';
+}
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const fd=new FormData(form);
+  const {error}=await supabaseClient.from('class901_capsules').insert({name:fd.get('name')||'匿名同學',message:fd.get('message')});
+  if(error){console.error(error);showToast('留言失敗，請確認線上資料庫設定。');return;}
+  form.reset();await renderCapsules();showToast('回憶已送上雲端 ☁️');
+});
+renderCapsules();
+</script>
+</body>
+</html>
